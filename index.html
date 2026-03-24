@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Multi-Escenas con Plantillas Externas</title>
+    <!-- Librería de A-Frame -->
+    <script src="https://aframe.io/releases/1.7.1/aframe.min.js"></script>
+    <!-- Componente de Plantillas (Template) -->
+    <script src="https://unpkg.com/aframe-template-component@3.2.1/dist/aframe-template-component.min.js"></script>
+
+    <style>
+        /* Estilos CSS para la interfaz de usuario en 2D superpuesta */
+        #ui-externa {
+            position: absolute;
+            bottom: 20px;
+            left: 20px;
+            z-index: 10; /* Asegura que la UI esté por encima del canvas 3D */
+            background: rgba(0, 0, 0, 0.8);
+            padding: 20px 120px;
+            border-radius: 10px;
+            color: white;
+            font-family: Arial, sans-serif;
+            box-shadow: 0 
+        }
+
+        h2 {
+            margin: 0 0 15px 0;
+            font-size: 16px;
+            text-align: center;
+        }
+
+        button {
+            display: block;
+            width: 160px;
+            padding: 10px;
+            margin: 10px 0;
+            background-color: #2980b9;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: 100;
+            transition: background 0.2s ease;
+        }
+
+        button:hover {
+            background-color: #3498db;
+            transform: scale(1.02, 1.02);
+        }
+    </style>
+</head>
+<body>
+
+    <!-- INTERFAZ DE USUARIO EN HTML PLANO -->
+    <div id="ui-externa">
+        <h2>Cambiar Escena</h2>
+        <!-- Botones que ejecutan la función de cambio pasándole el archivo externo -->
+        <button onclick="cambiarEscena('escena1.html')">Cargar Escena 1</button>
+        <button onclick="cambiarEscena('escena2.html')">Cargar Escena 2</button>
+        <button onclick="cambiarEscena('escena3.html')">Cargar Escena 3</button>
+    </div>
+
+    <!-- ESCENA 3D A-FRAME -->
+    <a-scene renderer="antialias: true" xr-mode-ui="XRMode: xr">
+        <a-camera position="0 1.6 0"></a-camera>
+
+        <!-- El contenedor que inyecta los archivos externos dinámicamente -->
+        <a-entity id="contenedor-escena" template="src: escena1.html"></a-entity>
+    </a-scene>
+
+    <script>
+        // Función Javascript para actualizar el atributo 'src' del componente template
+        function cambiarEscena(archivoHtml) {
+            const contenedor = document.getElementById('contenedor-escena');
+            contenedor.setAttribute('template', 'src', archivoHtml);
+        }
+    </script>
+
+</body>
+</html>
