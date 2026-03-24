@@ -62,7 +62,9 @@
     </div>
 
     <!-- ESCENA 3D A-FRAME -->
-    <a-scene renderer="antialias: true" xr-mode-ui="XRMode: xr">
+    <a-scene renderer="antialias: true" xr-mode-ui="XRMode: xr" webxr="requiredFeatures: hit-test,local-floor;
+                optionalFeatures: dom-overlay,unbounded;
+                overlayElement: #ui-externa;">
         <a-camera position="0 1.6 0"></a-camera>
 
         <!-- El contenedor que inyecta los archivos externos dinámicamente -->
